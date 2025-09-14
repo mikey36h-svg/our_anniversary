@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Love Story</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;700&family=Fredoka+One&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Comfortaa', cursive;
+            background: linear-gradient(45deg, #ff9a9e, #fecfef, #fecfef, #ff9a9e);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+        
+        .book-cover {
+            width: 100%;
+            max-width: 600px;
+            margin: 50px auto;
+            perspective: 1500px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .book-cover:hover {
+            transform: scale(1.05);
+        }
+        
+        .book {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            transform-style: preserve-3d;
+            animation: bookFloat 6s ease-in-out infinite;
+        }
+        
+        @keyframes bookFloat {
+            0%, 100% { transform: rotateY(-5deg) rotateX(5deg); }
+            50% { transform: rotateY(5deg) rotateX(-5deg); }
+        }
+        
+        .book-title {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            font-family: 'Fredoka One', cursive;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            animation: titlePulse 3s ease-in-out infinite;
+        }
+        
+        @keyframes titlePulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.05); }
+        }
+        
+        .subtitle {
+            margin-top: 20px;
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        
+        .hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        
+        .heart {
+            position: absolute;
+            color: #ff6b9d;
+            animation: heartFloat 4s ease-in-out infinite;
+            font-size: 1.5rem;
+            opacity: 0.7;
+        }
+        
+        @keyframes heartFloat {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            50% { opacity: 0.7; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+        
+        .story-container {
+            display: none;
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .story-page {
+            display: none;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            min-height: 500px;
+            position: relative;
+            overflow: hidden;
+            animation: pageSlideIn 0.8s ease-out;
+        }
+        
+        .story-page.active {
+            display: block;
+        }
+        
+        @keyframes pageSlideIn {
+            0% { 
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+            100% { 
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .page-title {
+            font-family: 'Fredoka One', cursive;
+            font-size: 2rem;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .page-date {
+            color: #ff6b9d;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        
+        .characters {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 30px 0;
+            gap: 50px;
+        }
+        
+        .character {
+            position: relative;
+            animation: characterBounce 3s ease-in-out infinite;
+        }
+        
+        .character.boy {
+            animation-delay: 0s;
+        }
+        
+        .character.girl {
+            animation-delay: 1.5s;
+        }
+        
+        @keyframes characterBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .boy-svg, .girl-svg {
+            width: 120px;
+            height: 160px;
+        }
+        
+        .page-content {
+            text-align: center;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+            margin: 30px 0;
+        }
+        
+        .navigation {
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        .nav-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            margin: 0 10px;
+            border-radius: 25px;
+            font-family: 'Comfortaa', cursive;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+        
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .back-to-cover {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 107, 157, 0.9);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-family: 'Comfortaa', cursive;
+            font-weight: 600;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .back-to-cover:hover {
+            background: rgba(255, 107, 157, 1);
+            transform: scale(1.05);
+        }
+        
+        .scene-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .floating-heart {
+            position: absolute;
+            color: #ff6b9d;
+            animation: floatUp 3s ease-in-out infinite;
+            opacity: 0.6;
+        }
+        
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0.6; }
+            100% { transform: translateY(-50px) rotate(180deg); opacity: 0; }
+        }
+        
+        .sparkle {
+            position: absolute;
+            color: #ffd700;
+            animation: sparkleAnimation 2s ease-in-out infinite;
+        }
+        
+        @keyframes sparkleAnimation {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+        
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ff6b9d, #667eea);
+            z-index: 1000;
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+    <div class="hearts" id="backgroundHearts"></div>
+    
+    <div class="container">
+        <!-- Book Cover -->
+        <div class="book-cover" id="bookCover">
+            <div class="book">
+                <div class="book-title">
+                    Our Love Story
+                    <div class="subtitle">A Journey Through Time ❤️</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Story Pages -->
+        <div class="story-container" id="storyContainer">
+            <button class="back-to-cover" onclick="showCover()">📖 Back to Cover</button>
+            
+            <!-- Page 1: First Meeting -->
+            <div class="story-page active" data-page="1">
+                <div class="scene-elements">
+                    <div class="floating-heart" style="top: 10%; left: 15%; animation-delay: 0s;">💕</div>
+                    <div class="floating-heart" style="top: 20%; right: 10%; animation-delay: 1s;">💖</div>
+                    <div class="sparkle" style="top: 30%; left: 80%; animation-delay: 0.5s;">✨</div>
+                </div>
+                
+                <div class="page-header">
+                    <h2 class="page-title">Chapter 1: The Beginning</h2>
+                    <p class="page-date">Where It All Started</p>
+                </div>
+                
+                <div class="characters">
+                    <div class="character boy">
+                        <svg class="boy-svg" viewBox="0 0 120 160">
+                            <!-- Tall boy in school uniform -->
+                            <circle cx="60" cy="25" r="15" fill="#fdbcb4" stroke="#f4a19b" stroke-width="2"/>
+                            <path d="M50 20 Q60 15 70 20" fill="none" stroke="#8b4513" stroke-width="3"/>
+                            <circle cx="55" cy="23" r="2" fill="#000"/>
+                            <circle cx="65" cy="23" r="2" fill="#000"/>
+                            <path d="M58 28 Q60 30 62 28" fill="none" stroke="#000" stroke-width="1"/>
+                            <!-- School uniform -->
+                            <rect x="45" y="40" width="30" height="50" fill="#000080" rx="5"/>
+                            <rect x="48" y="43" width="24" height="40" fill="#fff"/>
+                            <rect x="55" y="43" width="10" height="15" fill="#ff0000"/>
+                            <rect x="40" y="90" width="40" height="50" fill="#000080"/>
+                            <rect x="45" y="140" width="10" height="15" fill="#000"/>
+                            <rect x="65" y="140" width="10" height="15" fill="#000"/>
+                        </svg>
+                    </div>
+                    
+                    <div class="character girl">
+                        <svg class="girl-svg" viewBox="0 0 120 160">
+                            <!-- Short girl in school uniform -->
+                            <circle cx="60" cy="30" r="12" fill="#fdbcb4" stroke="#f4a19b" stroke-width="2"/>
+                            <path d="M48 25 Q60 20 72 25 Q68 30 60 28 Q52 30 48 25" fill="#4b0000"/>
+                            <circle cx="55" cy="28" r="2" fill="#000"/>
+                            <circle cx="65" cy="28" r="2" fill="#000"/>
+                            <path d="M58 33 Q60 35 62 33" fill="none" stroke="#000" stroke-width="1"/>
+                            <!-- School uniform -->
+                            <rect x="48" y="42" width="24" height="40" fill="#000080" rx="3"/>
+                            <rect x="50" y="45" width="20" height="30" fill="#fff"/>
+                            <rect x="56" y="45" width="8" height="12" fill="#ff0000"/>
+                            <rect x="45" y="82" width="30" height="35" fill="#000080"/>
+                            <rect x="50" y="117" width="8" height="12" fill="#000"/>
+                            <rect x="62" y="117" width="8" height="12" fill="#000"/>
+                        </svg>
+                    </div>
+                </div>
+                
+                <div class="page-content">
+                    <p>In a bustling tuition class, among the sea of students in crisp uniforms, two hearts were unknowingly about to change forever. You, tall and thoughtful, and her, petite and bright, sat in the same classroom, little knowing that this moment would be the first page of your beautiful love story.</p>
+                    <p>✨ Sometimes the most magical journeys begin with the simplest moments ✨</p>
+                </div>
+            </div>
+            
+            <!-- Page 2: Long Distance Texting -->
+            <div class="story-page" data-page="2">
+                <div class="scene-elements">
+                    <div class="floating-heart" style="top: 15%; left: 20%; animation-delay: 0.5s;">💌</div>
+                    <div class="floating-heart" style="top: 25%; right: 15%; animation-delay: 1.5s;">📱</div>
+                    <div class="sparkle" style="top: 35%; left: 70%; animation-delay: 1s;">🌙</div>
+                </div>
+                
+                <div class="page-header">
+                    <h2 class="page-title">Chapter 2: Late Night Conversations</h2>
+                    <p class="page-date">Hearts Connected Through Screens</p>
+                </div>
+                
+                <div class="characters">
+                    <div class="character boy">
+                        <svg class="boy-svg" viewBox="0 0 120 160">
+                            <!-- Boy lying in bed with phone -->
+                            <ellipse cx="60" cy="120" rx="50" ry="15" fill="#4169e1" opacity="0.3"/>
+                            <rect x="30" y="105" width="60" height="20" fill="#fff" rx="3"/>
+                            <circle cx="60" cy="25" r="15" fill="#fdbcb4"/>
+                            <path d="M50 20 Q60 15 70 20" fill="#8b4513"/>
+                            <circle cx="55" cy="23" r="2" fill="#000"/>
+                            <circle cx="65" cy="23" r="2" fill="#000"/>
+                            <path d="M58 28 Q60 30 62 28" fill="none" stroke="#000" stroke-width="1"/>
+                            <rect x="45" y="40" width="30" height="50" fill="#87ceeb"/>
+                            <rect x="70" y="55" width="15" height="25" fill="#000" rx="2"/>
+                            <rect x="72" y="57" width="11" height="18" fill="#0080ff"/>
+                            <circle cx="77" cy="66" r="1" fill="#00ff00"/>
+                        </svg>
+                    </div>
+                    
+                    <div class="character girl">
+                        <svg class="girl-svg" viewBox="0 0 120 160">
+                            <!-- Girl lying in bed with phone -->
+                            <ellipse cx="60" cy="120" rx="50" ry="15" fill="#ff69b4" opacity="0.3"/>
+                            <rect x="30" y="105" width="60" height="20" fill="#fff" rx="3"/>
+                            <circle cx="60" cy="30" r="12" fill="#fdbcb4"/>
+                            <path d="M48 25 Q60 20 72 25" fill="#4b0000"/>
+                            <circle cx="55" cy="28" r="2" fill="#000"/>
+                            <circle cx="65" cy="28" r="2" fill="#000"/>
+                            <path d="M58 33 Q60 35 62 33" fill="none" stroke="#000" stroke-width="1"/>
+                            <rect x="48" y="42" width="24" height="40" fill="#ffb6c1"/>
+                            <rect x="30" y="55" width="15" height="25" fill="#000" rx="2"/>
+                            <rect x="32" y="57" width="11" height="18" fill="#ff69b4"/>
+                            <circle cx="37" cy="66" r="1" fill="#00ff00"/>
+                        </svg>
+                    </div>
+                </div>
+                
+                <div class="page-content">
+                    <p>Night after night, as the world slept, your hearts stayed awake. Each in your own beds, phones glowing in the darkness, sharing dreams, fears, and endless conversations that stretched until dawn. Every message was a thread, weaving your souls closer together across the digital divide.</p>
+                    <p>📱 Love letters of the modern age, written in pixels and delivered by heart 💕</p>
+                </div>
+            </div>
+            
+            <!-- Page 3: Church Meeting -->
+            <div class="story-page" data-page="3">
+                <div class="scene-elements">
+                    <div class="floating-heart" style="top: 10%; left: 25%; animation-delay: 0s;">⛪</div>
+                    <div class="floating-heart" style="top: 20%; right: 20%; animation-delay: 2s;">📸</div>
+                    <div class="sparkle" style="top: 40%; left: 75%; animation-delay: 1.5s;">✨</div>
+                </div>
+                
+                <div class="page-header">
+                    <h2 class="page-title">Chapter 3: Sacred Moments</h2>
+                    <p class="page-date">After One Year - A Meeting Blessed</p>
+                </div>
+                
+                <div class="characters">
+                    <div class="character boy">
+                        <svg class="boy-svg" viewBox="0 0 120 160">
+                            <circle cx="60" cy="25" r="15" fill="#fdbcb4"/>
+                            <path d="M50 20 Q60 15 70 20" fill="#8b4513"/>
+                            <circle cx="55" cy="23" r="2" fill="#000"/>
+                            <circle cx="65" cy="23" r="2" fill="#000"/>
+                            <path d="M58 28 Q60 30 62 28" fill="none" stroke="#000" stroke-width="1"/>
+                            <rect x="45" y="40" width="30" height="50" fill="#000080"/>
+                            <rect x="48" y="43" width="24" height="40" fill="#fff"/>
+                            <rect x="40" y="90" width="40" height="50" fill="#333"/>
+                            <rect x="45" y="140" width="10" height="15" fill="#000"/>
+                            <rect x="65" y="140" width="10" height="15" fill="#000"/>
+                            <!-- Camera gesture -->
+                            <rect x="75" y="50" width="10" height="8" fill="#000" rx="2"/>
+                        </svg>
+                    </div>
+                    
+                    <div class="character girl">
+                        <svg class="girl-svg" viewBox="0 0 120 160">
+                            <circle cx="60" cy="30" r="12" fill="#fdbcb4"/>
+                            <path d="M48 25 Q60 20 72 25" fill="#4b0000"/>
+                            <circle cx="55" cy="28" r="2" fill="#000"/>
+                            <circle cx="65" cy="28" r="2" fill="#000"/>
+                            <path d="M58 33 Q60 35 62 33" fill="none" stroke="#000" stroke-width="1"/>
+                            <rect x="48" y="42" width="24" height="40" fill="#ff69b4"/>
+                            <rect x="45" y="82" width="30" height="35" fill="#800080"/>
+                            <rect x="50" y="117" width="8" height="12" fill="#000"/>
+                            <rect x="62" y="117" width="8" height="12" fill="#000"/>
+                        </svg>
+                    </div>
+                </div>
+                
+                <div class="page-content">
+                    <p>After a whole year of virtual connection, destiny brought you together in a place of worship. In the serene atmosphere of the church, surrounded by faith and hope, you captured not just photographs, but the first real moments of your journey together. The camera clicked, but it was your hearts that truly captured the magic of that day.</p>
+                    <p>⛪ Where faith meets love, miracles are born 📸</p>
+                </div>
+            </div>
+            
+            <!-- Page 4: Love Confession -->
+            <div class="story-page" data-page="4">
+                <div class="scene-elements">
+                    <div class="floating-heart" style="top: 5%; left: 15%; animation-delay: 0s;">💖</div>
+                    <div class="floating-heart" style="top: 15%; right: 10%; animation-delay: 1s;">💕</div>
+                    <div class="floating-heart" style="top: 25%; left: 80%; animation-delay: 2s;">💗</div>
+                    <div class="sparkle" style="top: 35%; left: 30%; animation-delay: 0.5s;">✨</div>
+                    <div class="sparkle" style="top: 45%; right: 25%; animation-delay: 1.5s;">✨</div>
+                </div>
+                
+                <div class="page-header">
+                    <h2 class="page-title">Chapter 4: The Confession</h2>
+                    <p class="page-date">September 24, 2021 - The Day Everything Changed</p>
+                </div>
+                
+                <div class="characters">
+                    <div class="character boy">
+                        <svg class="boy-svg" viewBox="0 0 120 160">
+                            <circle cx="60" cy="25" r="15" fill="#fdbcb4"/>
+                            <path d="M50 20 Q60 15 70 20" fill="#8b4513"/>
+                            <circle cx="55" cy="23" r="2" fill="#000"/>
+                            <circle cx="65" cy="23" r="2" fill="#000"/>
+                            <path d="M58 28 Q60 30 62 28" fill="none" stroke="#000" stroke-width="1"/>
+                            <rect x="45" y="40" width="30" height="50" fill="#4169e1"/>
+                            <rect x="40" y="90" width="40" height="50" fill="#000080"/>
+                            <!-- Speech bubble -->
+                            <ellipse cx="85" cy="35" rx="15" ry="10" fill="#fff" stroke="#000"/>
+                            <path d="M75 40 L80 45 L85 40" fill="#fff"/>
+                            <text x="85" y="38" text-anchor="middle" font-size="8" fill="#ff0000">❤️</text>
+                        </svg>
+                    </div>
+                    
+                    <div class="character girl">
+                        <svg class="girl-svg" viewBox="0 0 120 160">
+                            <circle cx="60" cy="30" r="12" fill="#fdbcb4"/>
+                            <path d="M48 25 Q60 20 72 25" fill="#4b0000"/>
+                            <circle cx="55" cy="28" r="2" fill="#000"/>
+                            <circle cx="65" cy="28" r="2" fill="#000"/>
+                            <path d="M58 33 Q60 35 62 33" fill="none" stroke="#000" stroke-width="1"/>
+                            <rect x="48" y="42" width="24" height="40" fill="#ff69b4"/>
+                            <rect x="45" y="82" width="30" height="35" fill="#800080"/>
+                            <!-- Blushing cheeks -->
+                            <circle cx="50" cy="32" r="3" fill="#ff69b4" opacity="0.5"/>
+                            <circle cx="70" cy="32" r="3" fill="#ff69b4" opacity="0.5"/>
+                        </svg>
+                    </div>
+                </div>
+                
+                <div class="page-content">
+                    <p>September 24, 2021 - A date etched forever in your hearts. After months of growing closer, the words that had been dancing on your tongues finally found their voice. "I love you." Simple words that carried the weight of the universe, spoken in unison, creating a symphony that would echo through your lives forever.</p>
+                    <p>💖 The moment when two hearts became one story 💖</p>
+                </div>
+            </div>
+            
+            <!-- Page 5: First Date -->
+            <div class="story-page" data-page="5">
+                <div class="scene-elements">
+                    <div class="floating-heart" style="top: 10%; left: 20%; animation-delay: 0s;">🌹</div>
+                    <div class="floating-heart" style="top: 20%; right: 15%; animation-delay: 1s;">🫧</div>
+                    <div class="sparkle" style="top: 30%; left: 75%; animation-delay: 0.5s;">🌳</div>
+                    <div class="sparkle" style="top: 40%; right: 30%; animation-delay: 1.5s;">☀️</div>
+                </div>
+                
+                <div class="page-header">
+                    <h2 class="page-title">Chapter 5: First Date Magic</h2>
+                    <p class="page-date">February 2022 - A Day in the Park</p>
+                </div>
+                
+                <div class="characters">
+                    <div class="character boy">
+                        <svg class="boy-svg" viewBox="0 0 120 160">
+                            <circle cx="60" cy="25" r="15" fill="#fdbcb4"/>
+                            <path d="M50 20 Q60 15 70 20" fill="#8b4513"/>
+                            <circle cx="55" cy="23" r="2" fill="#000"/>
+                            <circle cx="65" cy="23" r="2" fill="#000"/>
+                            <path d="M58 28 Q60 30 62 28" fill="none" stroke="#000" stroke-width="1"/>
+                            <rect x="45" y="40" width="30" height="50" fill="#90EE90"/>
+                            <rect x="40" y="90" width="40" height="50" fill="#4169e1"/>
+                            <!-- Rose in hand -->
+                            <circle cx="35" cy="60" r="3" fill="#ff0000"/>
+                            <line x1="35" y1="63" x2="35" y2="75" stroke="#228b22" stroke-width="2"/>
+                            <!-- Bubble toy -->
+                            <circle cx="85" cy="55" r="5" fill="#87ceeb" opacity="0.6"/>
+                            <circle cx="88" cy="50" r="3" fill="#87ceeb" opacity="0.4"/>
+                        </svg>
+                    </div>
+                    
+                    <div class="character girl">
+                        <svg class="girl-svg" viewBox="0 0 120 160">
+                            <circle cx="60" cy="30" r="12" fill="#fdbcb4"/>
+                            <path d="M48 25 Q60 20 72 25" fill="#4b0000"/>
+                            <circle cx="55" cy="28" r="2" fill="#000"/>
+                            <circle cx="65" cy="28" r="2" fill="#000"/>
+                            <path d="M58 33 Q60 35 62 33" fill="none" stroke="#000" stroke-width="1"/>
+                            <rect x="48" y="42" width="24" height="40" fill="#ffb6c1"/>
+                            <rect x="45" y="82" width="30" height="35" fill="#ff69b4"/>
+                            <!-- Happy expression -->
+                            <circle cx="50" cy="32" r="3" fill="#ff69b4" opacity="0.3"/>
+                            <circle cx="70" cy="32" r="3" fill="#ff69b4" opacity="0.3"/>
+                        </svg>
+                    </div>
+                </div>
+                
+                <div class="page-content">
+                    <p>February 2022 brought the magic of your first official date. In a sprawling park under the gentle sun, you presented her with roses that paled in comparison to her beauty. Together you blew bubbles that floated like your dreams - light, colorful, and reaching for the sky. Each pop of a bubble was like a wish coming true.</p>
+                    <p>🌹 Where roses bloom and bubbles dance, love takes its first steps 🫧</p>
+                </div>
+            </div>
+            
+            <!-- Page 6: Train Journey & First Kiss -->
+            <div class="story-page" data-page="6">
+                <div class="scene-elements">
+                    <div class="floating-heart" style="top: 5%; left: 10%; animation-delay: 0s;">🚂</div>
+                    <div class="floating-heart" style="top: 15%; right: 15%; animation-delay: 1s;">🌙</div>
+                    <div class="floating-heart" style="top: 25%; left: 70%; animation-delay: 2s;">💋</div>
+                    <div class="sparkle" style="top: 35%; right: 25%; animation-delay: 0.5s;">⭐</div>
+                </div>
+                
+                <div class="page-header">
+                    <h2 class="page-title">Chapter 6: Under the Starlit Sky</h2>
+                    <p class="page-date">That Same Night - A Journey of Hearts</p>
+                </div>
+                
+                <div class="characters">
+                    <div class="character boy">
+                        <svg class="boy-svg" viewBox="0 0 120 160">
+                            <circle cx="60" cy="25" r="15" fill="#fdbcb4"/>
+                            <path d="M50 20 Q60 15 70 20" fill="#8b4513"/>
+                            <circle cx="55" cy="23" r="2" fill="#000"/>
+                            <circle cx="65" cy="23" r="2" fill="#000"/>
+                            <path d="M58 28 Q60 30 62 28" fill="none" stroke="#000" stroke-width="1"/>
+                            <rect x="45" y="40" width="30" height="50" fill="#000080"/>
+                            <rect x="40" y="90" width="40" height="50" fill="#333"/>
+                            <!-- Train window background -->
+                            <rect x="20" y="10" width="80" height="30" fill="#000080" opacity="0.2" rx="5"/>
+                            <circle cx="25" cy="15" r="2" fill="#ffff00" opacity="0.8"/>
+                            <circle cx="95" cy="20" r="1.5" fill="#ffff00" opacity="0.6"/>
+                        </svg>
+                    </div>
+                    
+                    <div class="character girl">
+                        <svg class="girl-svg" viewBox="0 0 120 160">
+                            <circle cx="60" cy="30" r="12" fill="#fdbcb4"/>
+                            <path d="M48 25 Q60 20 72 25" fill="#4b0000"/>
+                            <circle cx="55" cy="28" r="2" fill="#000"/>
+                            <circle cx="65" cy="28" r="2" fill="#000"/>
+                            <path d="M58 33 Q60 35 62 33" fill="none" stroke="#000" stroke-width="1"/>
+                            <rect x="48" y="42" width="24" height="40" fill="#ff69b4"/>
+                            <rect x="45" y="82" width="30" height="35" fill="#800080"/>
+                            <!-- Heart eyes -->
+                            <path d="M52 26 Q55 24 58 26 Q55 29 52 26" fill="#ff0000"/>
+                            <path d="M62 26 Q65 24 68 26 Q65 29 62 26" fill="#ff0000"/>
+                        </svg>
+                    </div>
+                </div>
+                
+                <div class="page-content">
+                    <p>As the train swayed gently through the night, stars twinkled like fairy lights outside the window. In that magical moment, surrounded by the rhythm of the rails and the symphony of your heartbeats, time stood still. Your first kiss - soft, sweet, and perfect - sealed not just your lips, but your destiny together.</p>
+                    <p>🚂 Sometimes the most beautiful destinations are found in each other's arms 💋</p>
+                </div>
+            </div>
+            
+            <!-- Page 7: First Sleepover -->
+            <div class="story-page" data-page="7">
+                <div class="scene-elements">
+                    <div class="floating-heart" style="top: 10%; left: 15%; animation-delay: 0s;">🏨</div>
+                    <div class="floating-heart" style="top: 20%; right: 20%; animation-delay: 1s;">💞</div>
+                    <div class="sparkle" style="top: 30%; left: 75%; animation-delay: 0.5s;">✨</div>
+                    <div class="sparkle" style="top: 40%; right: 30%; animation-delay: 1.5s;">🌙</div>
+                </div>
+                
+                <div class="page-header">
+                    <h2 class="page-title">Chapter 7: A Night to Remember</h2>
+                    <p class="page-date">One Year Later - Our Beautiful Sanctuary</p>
+                </div>
+                
+                <div class="characters">
+                    <div class="character boy">
+                        <svg class="boy-svg" viewBox="0 0 120 160">
+                            <circle cx="60" cy="25" r="15" fill="#fdbcb4"/>
+                            <path d="M50 20 Q60 15 70 20" fill="#8b4513"/>
+                            <circle cx="55" cy="23" r="2" fill="#000"/>
+                            <circle cx="65" cy="23" r="2" fill="#000"/>
+                            <path d="M58 28 Q60 30 62 28" fill="none" stroke="#000" stroke-width="1"/>
+                            <rect x="45" y="40" width="30" height="50" fill="#87ceeb"/>
+                            <rect x="40" y="90" width="40" height="50" fill="#4169e1"/>
+                            <!-- Hotel room elements -->
+                            <rect x="10" y="130" width="100" height="20" fill="#8b4513" opacity="0.3"/>
+                            <rect x="20" y="120" width="15" height="15" fill="#ffff00" opacity="0.5"/>
+                        </svg>
+                    </div>
+                    
+                    <div class="character girl">
+                        <svg class="girl-svg" viewBox="0 0 120 160">
+                            <circle cx="60" cy="30" r="12" fill="#fdbcb4"/>
+                            <path d="M48 25 Q60 20 72 25" fill="#4b0000"/>
+                            <circle cx="55" cy="28" r="2" fill="#000"/>
+                            <circle cx="65" cy="28" r="2" fill="#000"/>
+                            <path d="M58 33 Q60 35 62 33" fill="none" stroke="#000" stroke-width="1"/>
+                            <rect x="48" y="42" width="24" height="40" fill="#ffb6c1"/>
+                            <rect x="45" y="82" width="30" height="35" fill="#ff69b4"/>
+                            <!-- Content expression -->
+                            <circle cx="50" cy="32" r="3" fill="#ff69b4" opacity="0.3"/>
+                            <circle cx="70" cy="32" r="3" fill="#ff69b4" opacity="0.3"/>
+                        </svg>
+                    </div>
+                </div>
+                
+                <div class="page-content">
+                    <p>A year after that first magical night, you found yourselves in a beautiful hotel room, a sanctuary just for two. The night was filled with whispered dreams, shared laughter, and the comfort of knowing you belonged together. In each other's arms, you discovered that home isn't a place - it's a person.</p>
+                    <p>🏨 Where love finds its perfect retreat, hearts find their home 💞</p>
+                </div>
+            </div>
+            
+            <!-- Page 8: Convincing Her Mother -->
+            <div class="story-page" data-page="8">
+                <div class="scene-elements">
+                    <div class="floating-heart" style="top: 10%; left: 20%; animation-delay: 0s;">🚉</div>
+                    <div class="floating-heart" style="top: 20%; right: 25%; animation-delay: 1s;">👩‍👧</div>
+                    <div class="sparkle" style="top: 35%; left: 70%; animation-delay: 0.5s;">🤝</div>
+                </div>
+                
+                <div class="page-header">
+                    <h2 class="page-title">Chapter 8: Building Bridges</h2>
+                    <p class="page-date">At the Railway Station - A Mother's Blessing</p>
+                </div>
+                
+                <div class="characters">
+                    <div class="character boy">
+                        <svg class="boy-svg" viewBox="0 0 120 160">
+                            <circle cx="60" cy="25" r="15" fill="#fdbcb4"/>
+                            <path d="M50 20 Q60 15 70 20" fill="#8b4513"/>
+                            <circle cx="55" cy="23" r="2" fill="#000"/>
+                            <circle cx="65" cy="23" r="2" fill="#000"/>
+                            <path d="M58 28 Q60 30 62 28" fill="none" stroke="#000" stroke-width="1"/>
+                            <rect x="45" y="40" width="30" height="50" fill="#4169e1"/>
+                            <rect x="40" y="90" width="40" height="50" fill="#000080"/>
+                            <!-- Respectful gesture -->
+                            <path d="M35 45 Q40 40 45 45" fill="none" stroke="#000" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    
+                    <div class="character girl">
+                        <svg class="girl-svg" viewBox="0 0 120 160">
+                            <circle cx="60" cy="30" r="12" fill="#fdbcb4"/>
+                            <path d="M48 25 Q60 20 72 25" fill="#4b0000"/>
+                            <circle cx="55" cy="28" r="2" fill="#000"/>
+                            <circle cx="65" cy="28" r="2" fill="#000"/>
+                            <path d="M58 33 Q60 35 62 33" fill="none" stroke="#000" stroke-width="1"/>
+                            <rect x="48" y="42" width="24" height="40" fill="#ff69b4"/>
+                            <rect x="45" y="82" width="30" height="35" fill="#800080"/>
+                            <!-- Hopeful expression -->
+                            <circle cx="50" cy="32" r="2" fill="#ff69b4" opacity="0.3"/>
+                            <circle cx="70" cy="32" r="2" fill="#ff69b4" opacity="0.3"/>
+                        </svg>
+                    </div>
+                </div>
+                
+                <div class="page-content">
+                    <p>At the bustling railway station, among the sounds of arriving trains and departing dreams, a crucial conversation took place. With courage in your heart and love as your guide, you spoke to her mother about your intentions. It wasn't just about convincing her - it was about showing that your love was built on respect, commitment, and genuine care for her daughter's happiness.</p>
+                    <p>🚉 Love wins not by force, but by the sincerity of the heart 🤝</p>
+                </div>
+            </div>
+            
+            <!-- Page 9: 3rd Anniversary -->
+            <div class="story-page" data-page="9">
+                <div class="scene-elements">
+                    <div class="floating-heart" style="top: 5%; left: 15%; animation-delay: 0s;">🎉</div>
+                    <div class="floating-heart" style="top: 15%; right: 10%; animation-delay: 1s;">💖</div>
+                    <div class="floating-heart" style="top: 25%; left: 75%; animation-delay: 2s;">3️⃣</div>
+                    <div class="sparkle" style="top: 35%; right: 30%; animation-delay: 0.5s;">✨</div>
+                </div>
+                
+                <div class="page-header">
+                    <h2 class="page-title">Chapter 9: Three Years Strong</h2>
+                    <p class="page-date">September 2024 - Celebrating Love's Growth</p>
+                </div>
+                
+                <div class="characters">
+                    <div class="character boy">
+                        <svg class="boy-svg" viewBox="0 0 120 160">
+                            <circle cx="60" cy="25" r="15" fill="#fdbcb4"/>
+                            <path d="M50 20 Q60 15 70 20" fill="#8b4513"/>
+                            <circle cx="55" cy="23" r="2" fill="#000"/>
+                            <circle cx="65" cy="23" r="2" fill="#000"/>
+                            <circle cx="58" cy="28" r="1" fill="#000"/>
+                            <circle cx="62" cy="28" r="1" fill="#000"/>
+                            <path d="M56 30 Q60 33 64 30" fill="none" stroke="#000" stroke-width="2"/>
+                            <rect x="45" y="40" width="30" height="50" fill="#4169e1"/>
+                            <rect x="40" y="90" width="40" height="50" fill="#000080"/>
+                            <!-- Anniversary gift -->
+                            <rect x="75" y="50" width="10" height="8" fill="#ff0000"/>
+                            <path d="M77 50 Q80 47 83 50" fill="#ff0000"/>
+                        </svg>
+                    </div>
+                    
+                    <div class="character girl">
+                        <svg class="girl-svg" viewBox="0 0 120 160">
+                            <circle cx="60" cy="30" r="12" fill="#fdbcb4"/>
+                            <path d="M48 25 Q60 20 72 25" fill="#4b0000"/>
+                            <circle cx="55" cy="28" r="2" fill="#000"/>
+                            <circle cx="65" cy="28" r="2" fill="#000"/>
+                            <circle cx="58" cy="33" r="1" fill="#000"/>
+                            <circle cx="62" cy="33" r="1" fill="#000"/>
+                            <path d="M56 35 Q60 38 64 35" fill="none" stroke="#000" stroke-width="2"/>
+                            <rect x="48" y="42" width="24" height="40" fill="#ff69b4"/>
+                            <rect x="45" y="82" width="30" height="35" fill="#800080"/>
+                            <!-- Happy tears -->
+                            <circle cx="52" cy="35" r="1" fill="#87ceeb"/>
+                            <circle cx="68" cy="35" r="1" fill="#87ceeb"/>
+                        </svg>
+                    </div>
+                </div>
+                
+                <div class="page-content">
+                    <p>September 2024 marked three incredible years of your love story. Three years of growth, laughter, challenges overcome together, and dreams shared. You've weathered storms and basked in sunshine, always hand in hand. Each anniversary isn't just a celebration of time passed, but of love deepened and bonds strengthened.</p>
+                    <p>🎉 Three years down, forever to go - love that grows stronger with time 💖</p>
+                </div>
+            </div>
+            
+            <!-- Page 10: 4th Anniversary & Future -->
+            <div class="story-page" data-page="10">
+                <div class="scene-elements">
+                    <div class="floating-heart" style="top: 5%; left: 10%; animation-delay: 0s;">🌟</div>
+                    <div class="floating-heart" style="top: 10%; right: 15%; animation-delay: 1s;">∞</div>
+                    <div class="floating-heart" style="top: 20%; left: 80%; animation-delay: 2s;">💫</div>
+                    <div class="sparkle" style="top: 30%; right: 25%; animation-delay: 0.5s;">✨</div>
+                    <div class="sparkle" style="top: 40%; left: 20%; animation-delay: 1.5s;">🌈</div>
+                </div>
+                
+                <div class="page-header">
+                    <h2 class="page-title">Chapter 10: Forever & Always</h2>
+                    <p class="page-date">September 2025 - Today & All Our Tomorrows</p>
+                </div>
+                
+                <div class="characters">
+                    <div class="character boy">
+                        <svg class="boy-svg" viewBox="0 0 120 160">
+                            <circle cx="60" cy="25" r="15" fill="#fdbcb4"/>
+                            <path d="M50 20 Q60 15 70 20" fill="#8b4513"/>
+                            <circle cx="55" cy="23" r="2" fill="#000"/>
+                            <circle cx="65" cy="23" r="2" fill="#000"/>
+                            <circle cx="58" cy="28" r="1" fill="#000"/>
+                            <circle cx="62" cy="28" r="1" fill="#000"/>
+                            <path d="M55 30 Q60 34 65 30" fill="none" stroke="#000" stroke-width="2"/>
+                            <rect x="45" y="40" width="30" height="50" fill="#4169e1"/>
+                            <rect x="40" y="90" width="40" height="50" fill="#000080"/>
+                            <!-- Ring gesture -->
+                            <circle cx="72" cy="55" r="3" fill="#ffd700"/>
+                            <circle cx="72" cy="55" r="1" fill="#fff"/>
+                        </svg>
+                    </div>
+                    
+                    <div class="character girl">
+                        <svg class="girl-svg" viewBox="0 0 120 160">
+                            <circle cx="60" cy="30" r="12" fill="#fdbcb4"/>
+                            <path d="M48 25 Q60 20 72 25" fill="#4b0000"/>
+                            <circle cx="55" cy="28" r="2" fill="#000"/>
+                            <circle cx="65" cy="28" r="2" fill="#000"/>
+                            <circle cx="58" cy="33" r="1" fill="#000"/>
+                            <circle cx="62" cy="33" r="1" fill="#000"/>
+                            <path d="M55 35 Q60 39 65 35" fill="none" stroke="#000" stroke-width="2"/>
+                            <rect x="48" y="42" width="24" height="40" fill="#ff69b4"/>
+                            <rect x="45" y="82" width="30" height="35" fill="#800080"/>
+                            <!-- Joy tears -->
+                            <circle cx="52" cy="36" r="1" fill="#87ceeb"/>
+                            <circle cx="68" cy="36" r="1" fill="#87ceeb"/>
+                        </svg>
+                    </div>
+                </div>
+                
+                <div class="page-content">
+                    <p>Here we are today - September 2025, celebrating four beautiful years together! But this isn't an ending, it's just the beginning of an infinite story. Ahead lies a tapestry of dreams waiting to be woven: more anniversaries, adventures yet to come, milestones to celebrate, and memories yet to be made.</p>
+                    <p>Your love story continues to unfold, page by page, day by day, heart to heart. The best chapters are still being written! 💫</p>
+                    <p>🌟 To infinity and beyond - this is just the beginning of forever ∞</p>
+                </div>
+            </div>
+            
+            <div class="navigation">
+                <button class="nav-btn" onclick="previousPage()" id="prevBtn">❮ Previous</button>
+                <span id="pageIndicator">Page 1 of 10</span>
+                <button class="nav-btn" onclick="nextPage()" id="nextBtn">Next ❯</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let currentPage = 1;
+        const totalPages = 10;
+        
+        // Create floating hearts background
+        function createBackgroundHearts() {
+            const heartsContainer = document.getElementById('backgroundHearts');
+            for (let i = 0; i < 15; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = '💖';
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 4 + 's';
+                heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+                heartsContainer.appendChild(heart);
+            }
+        }
+        
+        // Open the book
+        function openBook() {
+            document.getElementById('bookCover').style.display = 'none';
+            document.getElementById('storyContainer').style.display = 'block';
+            updatePageIndicator();
+            updateNavigationButtons();
+            updateProgressBar();
+        }
+        
+        // Show book cover
+        function showCover() {
+            document.getElementById('bookCover').style.display = 'block';
+            document.getElementById('storyContainer').style.display = 'none';
+            document.getElementById('progressBar').style.width = '0%';
+        }
+        
+        // Navigation functions
+        function nextPage() {
+            if (currentPage < totalPages) {
+                document.querySelector(`.story-page[data-page="${currentPage}"]`).classList.remove('active');
+                currentPage++;
+                document.querySelector(`.story-page[data-page="${currentPage}"]`).classList.add('active');
+                updatePageIndicator();
+                updateNavigationButtons();
+                updateProgressBar();
+                addPageEffects();
+            }
+        }
+        
+        function previousPage() {
+            if (currentPage > 1) {
+                document.querySelector(`.story-page[data-page="${currentPage}"]`).classList.remove('active');
+                currentPage--;
+                document.querySelector(`.story-page[data-page="${currentPage}"]`).classList.add('active');
+                updatePageIndicator();
+                updateNavigationButtons();
+                updateProgressBar();
+                addPageEffects();
+            }
+        }
+        
+        function updatePageIndicator() {
+            document.getElementById('pageIndicator').textContent = `Page ${currentPage} of ${totalPages}`;
+        }
+        
+        function updateNavigationButtons() {
+            document.getElementById('prevBtn').disabled = currentPage === 1;
+            document.getElementById('nextBtn').disabled = currentPage === totalPages;
+        }
+        
+        function updateProgressBar() {
+            const progress = (currentPage / totalPages) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+        
+        function addPageEffects() {
+            // Add some sparkles when changing pages
+            const activePage = document.querySelector('.story-page.active');
+            const sparkle = document.createElement('div');
+            sparkle.innerHTML = '✨';
+            sparkle.style.position = 'absolute';
+            sparkle.style.top = '50%';
+            sparkle.style.left = '50%';
+            sparkle.style.transform = 'translate(-50%, -50%)';
+            sparkle.style.fontSize = '2rem';
+            sparkle.style.animation = 'sparkleAnimation 1s ease-out';
+            sparkle.style.pointerEvents = 'none';
+            sparkle.style.zIndex = '1000';
+            
+            activePage.appendChild(sparkle);
+            
+            setTimeout(() => {
+                sparkle.remove();
+            }, 1000);
+        }
+        
+        // Event listeners
+        document.getElementById('bookCover').addEventListener('click', openBook);
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (document.getElementById('storyContainer').style.display !== 'none') {
+                if (e.key === 'ArrowRight' || e.key === ' ') {
+                    e.preventDefault();
+                    nextPage();
+                } else if (e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    previousPage();
+                } else if (e.key === 'Escape') {
+                    showCover();
+                }
+            }
+        });
+        
+        // Initialize
+        createBackgroundHearts();
+        
+        // Add some interactive elements
+        document.addEventListener('DOMContentLoaded', () => {
+            // Add click effects to characters
+            document.querySelectorAll('.character').forEach(char => {
+                char.addEventListener('click', (e) => {
+                    e.target.style.transform = 'scale(1.1)';
+                    setTimeout(() => {
+                        e.target.style.transform = '';
+                    }, 200);
+                });
+            });
+        });
+        
+        // Auto-create floating elements periodically
+        setInterval(() => {
+            if (document.getElementById('storyContainer').style.display !== 'none') {
+                const activePage = document.querySelector('.story-page.active');
+                if (activePage) {
+                    const heart = document.createElement('div');
+                    heart.innerHTML = ['💕', '💖', '💗', '💝', '💞'][Math.floor(Math.random() * 5)];
+                    heart.style.position = 'absolute';
+                    heart.style.left = Math.random() * 100 + '%';
+                    heart.style.top = '100%';
+                    heart.style.animation = 'floatUp 3s ease-out';
+                    heart.style.pointerEvents = 'none';
+                    heart.style.zIndex = '10';
+                    
+                    activePage.appendChild(heart);
+                    
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 3000);
+                }
+            }
+        }, 3000);
+    </script>
+</body>
+</html>
